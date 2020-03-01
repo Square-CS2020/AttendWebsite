@@ -1,4 +1,5 @@
 <?php //Checks if user input is valid
+
     //include "sessionstart.php";
     session_start();
     $error = array('number' =>'', 'empty' => '');// stores any input errors
@@ -37,7 +38,7 @@
                 }
 
                 else{
-                $_SESSION['id'] = $user['Ins_ID'];
+                $_SESSION['ins_id'] = $user['Ins_ID'];
                 $stmt -> close();
                 $conn -> close();
                 }
@@ -48,8 +49,7 @@
             }
 
             else{// if no errors then redirect to page index
-                $error['empty'] = "sucess";
-                //header('Location: instructorWP/instructorWP.php');
+                header('Location: instructorWP/instructor.php');
             }
 
             
