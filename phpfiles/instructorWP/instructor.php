@@ -30,17 +30,15 @@
            
             while($row = $result->fetch_assoc()){
                 
-                echo "<option value='{$row['c.Class_ID']}'>" . $row['Course'] . "</option>";
-                //echo $row['c.Class_ID'];
+                echo "<option value='" .$row['Class_ID']. "'>" . $row['Course'] . "</option>";
+                
             }
          
             $stmt -> close();
             $conn -> close();
-        
         }
 
     }// end of function
-
 ?>
 
 <!DOCTYPE html>
@@ -51,15 +49,67 @@
     <link rel="stylesheet" type="text/css" href="StyleSheet-Intstructor.css" />
 
     <script>
-        function courceInfo(){
-            var courceList = document.getElementById("course-selection");
+        function courseInfo(){
+            var courseList = document.getElementById("course-selection");
+            var courseID = "";
+            var section = "";
 
-            for(var i = 0; i < courceList.options.length){
-                if(courceList.options[i].selected)
-                    document.getElementById.innerHTML = courceList.options[i].value;
-                    break;
-            }
+            for(var i = 0; i < courseList.length; i++){
+
+                if(courseList.options[i].selected){
+
+                    if(courseList.options[i].value == "None"){
+                        document.getElementById("out").innerHTML = "";
+                        return;
+                    }
+                    
+                    else{
+                        courseID = courseList.options[i].value;
+                        section = courseList.options[i].text;
+                        section = section.charAt(section.length-1);
+                        //document.getElementById("out").innerHTML = courseID + " " + section;
+                    
+                        loadRequest(courseID, section);      
+                        
+                        return;
+                    } 
+                }//end of else
+
+                else{
+                    continue;
+                }
+             
+            }// end of for loop
+        }// end of function
+    
+        
+        /*function loadRequest(course, section){
+            var xhttp = new XMLHttpRequest();
+            //document.getElementById("out").innerHTML = course + " " + section;
             
+            xhttp.onreadystatechange = function(){
+                if (xhttp.readyState === 4 && xhttp.status === 200) {
+                    document.getElementById("out").innerHTML = this.responseText;
+                }
+            };
+            
+            xhttp.open("POST", "populateTable.php", true);
+            //xhttp.open("GET", "populateTable.php"+str, true);
+            //document.getElementById("out").innerHTML = course + " " + section;
+            
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            document.getElementById("out").innerHTML = course + " " + section;
+            xhttp.send("course="course"&section="section);
+            document.getElementById("out").innerHTML = course + " " + section;
+
+
+        }*/
+
+        function loadRequest(course, class_section){
+            $.post('populateTable', {courseID:course, section:class_section}, 
+            function(data){
+                $('#out').html(data);
+            });
         }
     </script>
 
@@ -71,27 +121,24 @@
         <div class="contents" >
 
             <p>Choose Course</p>
+
           <form method="POST">
 
-            <select id="course-selection" onchange="courceInfo()">
+            <select id="course-selection" onchange="courseInfo()">
                 <?php populateDropdown();//invoke php function ?>
             </select>
 
             <br>
 
-            <textarea id = "out"> </textarea>
+            <!--<table id = "out"> </table> -->
+            <div id = "out">  </div>
 
 
         </form>
             <br>
 
             
-           <!---- <button >
-                Review Attendance</button>
            
-            
-            <button >
-                Review Documents</button> -->
         </div>
 </body>
 </html>
