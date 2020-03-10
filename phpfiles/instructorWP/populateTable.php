@@ -1,13 +1,11 @@
 <?php
         session_start();
-        $courseNum = '';
-        $section = '';
-
-        if(isset($_POST['courseID'] ) && isset($_POST['section'] ) ){ 
-            
-            $courseNum = $_POST['courseID'];
-            $section = $_POST['section'];
-            
+        $courseNum = $_POST['courseID'];
+        $section = $_POST['section'];
+        
+        if( isset($courseNum) && isset($section) ){ 
+            //echo "connect";
+           
             $host = "localhost";
             $dbUsername = "root";
             $dbPassword = "";
@@ -24,13 +22,14 @@
                         FROM student AS s
                         WHERE s.Std_ID IN(SELECT Std_ID 
                                             FROM enroll
-                                            WHERE Class_ID = '?' AND Section = '?')";
+                                            WHERE Class_ID = ? AND Section = ?)";
             
                 $stmt = $conn -> prepare($select);
-                $stmt -> bind_param("ss", $course, $section);
+                $stmt -> bind_param("ss", $courseNum, $section);
                 $stmt -> execute();
+                $result = $stmt->get_result();
 
-                echo "<table> <tr> 
+                echo "<tr> 
                         <th> Student Name </th> 
                         <th> Gender </th> 
                         <th> Senority </th> 
@@ -43,7 +42,7 @@
                             "<td>" . $row['Senority'] . "</td> </tr>";
                     
                 }//end of loop
-                echo "</table>";
+               
 
             }// end of else
         }// end of if

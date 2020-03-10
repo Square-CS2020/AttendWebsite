@@ -13,10 +13,7 @@
         die('Connect Error('.mysqli_connect_errno().')'. mysqli_connect_errno());
     }
 
-    /*SELECT CONCAT c.Class_ID, (c.Dept, " ", c.Cource_Number, " ", cs.Section) AS Course
-      FROM course AS c 
-      INNER JOIN course_section AS cs on c.Class_ID = cs.Class_ID
-        and cs.Ins_ID = 8; */
+    
     else{
         $number = $_SESSION['ins_id'];
 

@@ -67,7 +67,6 @@
                         courseID = courseList.options[i].value;
                         section = courseList.options[i].text;
                         section = section.charAt(section.length-1);
-                        //document.getElementById("out").innerHTML = courseID + " " + section;
                     
                         loadRequest(courseID, section);      
                         
@@ -83,40 +82,35 @@
         }// end of function
     
         
-        /*function loadRequest(course, section){
+        function loadRequest(course, section){
             var xhttp = new XMLHttpRequest();
-            //document.getElementById("out").innerHTML = course + " " + section;
+            var data = "courseID=" + course + "&section=" + section;
             
             xhttp.onreadystatechange = function(){
                 if (xhttp.readyState === 4 && xhttp.status === 200) {
-                    document.getElementById("out").innerHTML = this.responseText;
+                    //document.getElementById("out").innerHTML = course + " " + section;
+
+                    document.getElementById("out").innerHTML = xhttp.responseText;
                 }
             };
             
             xhttp.open("POST", "populateTable.php", true);
             //xhttp.open("GET", "populateTable.php"+str, true);
-            //document.getElementById("out").innerHTML = course + " " + section;
             
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            document.getElementById("out").innerHTML = course + " " + section;
-            xhttp.send("course="course"&section="section);
-            document.getElementById("out").innerHTML = course + " " + section;
+            //document.getElementById("out").innerHTML = course + " " + section;
+            xhttp.send(data);
+            //document.getElementById("out").innerHTML = xhttp.send(data);
 
 
-        }*/
-
-        function loadRequest(course, class_section){
-            $.post('populateTable', {courseID:course, section:class_section}, 
-            function(data){
-                $('#out').html(data);
-            });
         }
+        
     </script>
 
 </head>
 <body>
     
-    <div class="banner"></div>
+    <div class="banner"> </div>
     
         <div class="contents" >
 
@@ -129,9 +123,10 @@
             </select>
 
             <br>
+            
 
-            <!--<table id = "out"> </table> -->
-            <div id = "out">  </div>
+            <table id = "out" style="width:100%"> </table>
+           <!-- <div id = "out">  </div> -->
 
 
         </form>
