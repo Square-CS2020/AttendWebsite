@@ -4,6 +4,7 @@ This will contain all components for our Attendance Website.
 Database Structure: 
 
 Attendence Table: Tracks the log-in time of students for specific cources and their attendence status.
+
   Structure: Attendence(Class_ID, Section, Std_ID, Log_time, Log_date, Atten_status)
   Class_ID: Stores class/cource ID
   Section: Stores class/cource ID section
@@ -13,6 +14,7 @@ Attendence Table: Tracks the log-in time of students for specific cources and th
   Atten_status: stores attendence status base on their Log_time.(tardy, absent, present)
   
 Class_sesion Table: Stores info about class-session.
+
   Structure: Class-session(Class_ID, Section, Ses_date, Start_time, End_time, Valid)
   Class_ID: Stores class/cource ID
   Section: Stores class/cource ID section
@@ -22,6 +24,7 @@ Class_sesion Table: Stores info about class-session.
   Valid: stores whether a class-session is valid(y for yes or n for no)
   
 Course Table: Stores info about course.
+
   Structure: Course(Class_ID, Class_Name, Dept, Cource_Number, hours, Semester, Sem_year, Start_date, End_date)
   Class_ID: Stores class/cource ID
   Class_Name: Name of the class/cource 
@@ -43,18 +46,21 @@ Course_Section Table: Stores info about a courses section. For example for cours
   Ins_ID: Stores the ID of the instructor who teaches this course section.
 
 Enroll Table: Tracks which class a student is enrolled in
+
   Structure: Enroll(Std_ID, Class_ID, Section)
   Std_ID: Stores student 870 number. 
   Class_ID: Stores class/course ID
   Section: Stores class/course ID section
   
 Instructor: Stores info about Instructor
+
   Structure: Instructor(Ins_ID, Fname, Lname)
   Ins_ID: ID of Instructor(for now they are assigned a number between 1-9)
   Fname: First name of Instructor 
   Lname: Last name of Instructor
   
 Student Table: Stores info about Instructor
+
   Structure: Student(Std_ID, Fname, Lname, Sex, Senority)
   Std_ID: ID of Student
   Fname: First name
@@ -63,6 +69,7 @@ Student Table: Stores info about Instructor
   Senority: Student senority
   
 Teach Table:  Tracks which students are taught by a specific instructor
+
   Structure: Teach(Std_ID, Ins_ID)
   Std_ID: ID of student 
   Ins_ID: ID of Instructor
