@@ -1,5 +1,8 @@
 # AttendWebsite
 This will contain all components for our Attendance Website.
+UPDATE: I added a new filed in to the course_section table:Time_Before_Tardy.
+With this the instructor can set the amount time a student has to sign in before
+they will be marked tardy.
 
 Database Structure: 
 
@@ -63,13 +66,15 @@ Course Table: Stores info about course.
 Course_Section Table: Stores info about a courses section. For example for course with ID 11111 this
                       will display info on 11111 section A and 11111 section B.
                       
-    Structure:  Course_Section(Class_ID, Section, DOW, Ins_ID)
+    Structure:  Course_Section(Class_ID, Section, DOW, Time_Before_Tardy, Ins_ID)
 
     Class_ID: Stores class/course ID
 
     Section: Stores class/course ID section
 
-    DOW: Stores what day a course/class occurs(M: Monday, T:Tuesday, W:Wendsday, TR:Thursday, F:Friday)
+    DOW: Stores what day a course/class occurs(M: Monday, T:Tuesday, W:Wendsday, R:Thursday, F:Friday)
+    
+    Time_Before_Tardy: Stores amount of time after the class start time before a student is marked tardy.
 
     Ins_ID: Stores the ID of the instructor who teaches this course section.
 
