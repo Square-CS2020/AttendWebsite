@@ -32,6 +32,4 @@
         //header('Location: instructorWP/instructorWP.php');
     }
 
-    
-}// end of else
 ?>

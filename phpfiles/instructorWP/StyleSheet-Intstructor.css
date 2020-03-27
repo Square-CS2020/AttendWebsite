@@ -3,6 +3,17 @@
     background-color:bisque;
 }
 
+table{
+    border-collapse: collapse;
+}
+
+table, th, td{
+    border: 1px solid black;
+    text-align: center;
+    
+    font-size: 12;
+}
+
 button {
     
    display: inline;
