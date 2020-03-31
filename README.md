@@ -1,5 +1,6 @@
 # AttendWebsite
 This will contain all components for our Attendance Website.
+
 UPDATE: I added a new filed in to the course_section table:Time_Before_Tardy.
 With this the instructor can set the amount time a student has to sign in before
 they will be marked tardy.
