@@ -18,7 +18,7 @@
 
         <div class="contents" >
 
-            <p style="display:inline">Enter your 870 number: </p>
+            <p style="display:inline">Enter last six digits of your 870 number: </p>
             <input type="text" name = "StnNum" required>
             <input type="submit" value="submit"> 
             <br/>

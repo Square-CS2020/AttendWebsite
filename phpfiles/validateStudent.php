@@ -5,7 +5,7 @@
     $number = '';
 
     if(isset($_POST['StnNum'])){ // checks if input is null
-        $number = $_POST['StnNum'];
+        $number = '870'. $_POST['StnNum'];
         
         if(!preg_match("/870[0-9]{6}$/", $number)){ //checks if number matches this regex
             $error['number'] = "You have entered an invalid input";
