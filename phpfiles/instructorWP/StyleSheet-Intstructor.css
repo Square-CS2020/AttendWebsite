@@ -1,33 +1,176 @@
 ﻿body {
     margin: 0;
-    background-color:bisque;
+    /*background-color:rgb(255, 228, 196);*/
+    background-color: rgb(26, 23, 23);
 }
 
-table{
-    border-collapse: collapse;
+/*Overlay*/
+#overlay{
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  cursor: pointer;
 }
 
-table, th, td{
-    border: 1px solid black;
+#popup{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+  background-color: white;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+}
+
+/*task button list */
+#btn-list{
+  list-style-type: none;
+}
+
+#btn-group{
+  visibility: hidden;
+}
+
+#btn-group ul li button {
+  background-color: rgb(28, 29, 28); /* Green */
+  border: 1px solid black;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  width: 150px;
+  display: block;
+}
+
+#btn-group ul li button:not(:last-child) {
+  border-bottom: none; /* Prevent double borders */
+}
+
+#btn-group ul li button:hover {
+  background-color: #3e8e41;
+}
+
+#task{
+  margin-left:20%;
+  margin-top: 1%;
+  /*padding:1px 16px;
+  height:1000px; 
+  width: 100px; */
+}
+
+
+/*Class list*/
+ul#classlist {
+  list-style-type: none;
+  
+  margin: 0;
+  padding: 0;
+  width: 15%;
+  background-color: rgb(46, 44, 44);
+  position: fixed; 
+  height: 100%;
+  overflow: auto;
+}
+
+ul#classlist li button  {
+  display: block;
+  color: rgb(0, 0, 0);
+  
+  text-decoration: none;
+  background-color: red;
+  padding: 15px 32px;
+  text-align: center;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 200px;
+}
+
+ul#classlist li p.click {
+  background-color: #4CAF50;
+  color: black;
+}
+
+ul#classlist li button:hover:not(.click) {
+  background-color: rgb(2, 182, 56);
+  color: rgb(255, 240, 240);
+} 
+
+
+
+/*table*/
+#table{
+  margin-top: 8%;
+}
+
+
+
+/*Table display*/
+#data-display{
+  /*visibility: hidden;*/
+  overflow: auto;
+  width: 70%;
+  height: 50%;
+  border-collapse: collapse;
+  
+}
+
+#data-display th{
+  background-color: rgb(61, 58, 58);
+  color:rgb(58, 160, 58);
+  text-align: center;
+}
+
+#data-display tr:hover {
+  background-color:rgb(58, 160, 58);
+  color:white;
+  cursor: pointer;
+}
+
+#data-display td {
+ background-color: black;
+ color: white;
+ text-align: center; 
+}
+
+
+/*Navigation bar*/
+.navi {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333333;
+  }
+  
+  .navi li {
+    float: left;
+  }
+  
+  .navi li a {
+    display: block;
+    color: white;
     text-align: center;
-    
-    font-size: 12;
-}
+    padding: 16px;
+    text-decoration: none;
+  }
+  
+  .navi li a:hover {
+    background-color: #111111;
+  }
 
-button {
-    
-   display: inline;
-    /*width: 144px;*/
-    font-size:20px;
-}
 
-textarea{
-    display: block; 
-    width: 75%;
-    height: 100px;
-    margin-top: 20px;
-    
-}
+
+
 
 .info{
     text-align: center;
@@ -42,10 +185,10 @@ textarea{
 
 .banner {
     width: 100%;
-    height: 200px;
+    height: 100px;
     background: red url("Logo.png") no-repeat center;
     background-size: contain;
-    
+    overflow: auto;
     /*display: block;*/
 }
 

@@ -1,17 +1,35 @@
 
 //Function displays the course's student roll call
 
-function makeBtnVisible(){
-    document.getElementById('btn1').setAttribute('style', 'display: inline');
-    document.getElementById('btn2').setAttribute('style', 'display: inline');
+function makeBtnGroupVisible(cid, section){
+    
+
+    document.getElementById("btn-group").style.visibility = "visible";
+    document.getElementById("data-display").style.display = "none";
+    document.getElementById("cid").value = cid;
+    document.getElementById("cid").innerHTML = section.charAt(section.length-1);
+    
 }
+
+function on() {
+    document.getElementById("overlay").style.display = "block";
+  }
+  
+  function off() {
+    document.getElementById("overlay").style.display = "none";
+  }
 
 
 function courseRollCallClassSession(functionCall){
-    var courseList = document.getElementById("course-selection");
-    var courseID = "";
-    var section = "";
-
+    document.getElementById("data-display").style.display = "block";
+    //var courseList = document.getElementById("classlist");
+    var courseID = document.getElementById("cid").value;
+    var section =  document.getElementById("cid").innerHTML;
+    
+   /* courseID = courseList.options[i].value;
+                section = courseList.options[i].text;
+                section = section.charAt(section.length-1);
+                
     for(var i = 0; i < courseList.length; i++){
 
         if(courseList.options[i].selected){
@@ -33,48 +51,43 @@ function courseRollCallClassSession(functionCall){
             continue;
         }
      
-    }// end of for loop
-
+    }// end of for loop */
+    
+    var data = "";
     if(functionCall == 0){
-        var xhttp = new XMLHttpRequest();
-        var data = "courseID=" + courseID + "&section=" + section +  "&chosefunction=yes"+ 
+        data = "courseID=" + courseID + "&section=" + section +  "&chosefunction=yes"+ 
         "&functionType=rollcall";
-        
-        xhttp.onreadystatechange = function(){
-            if (xhttp.readyState === 4 && xhttp.status === 200) {
+    }
 
-                document.getElementById("out").innerHTML = xhttp.responseText;
-            }
-        };
-        
-        xhttp.open("POST", "selectRecords.php", true);
-        
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send(data);
+    else if(functionCall == 1){
+        data = "courseID=" + courseID + "&section=" + section +  "&chosefunction=yes"+ 
+        "&functionType=session";
     }
 
     else{
-        var xhttp = new XMLHttpRequest();
-        var data = "courseID=" + courseID + "&section=" + section +  "&chosefunction=yes"+ 
-        "&functionType=session";
-        
-        xhttp.onreadystatechange = function(){
-            if (xhttp.readyState === 4 && xhttp.status === 200) {
-
-                document.getElementById("out").innerHTML = xhttp.responseText;
-            }
-        };
-        
-        xhttp.open("POST", "selectRecords.php", true);
-        
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send(data);
+        data = "courseID=" + courseID + "&section=" + section +  "&chosefunction=yes"+ 
+        "&functionType=atten";
     }
+
+    getData(data);
 
 }// end of function
 
-function getClassSessions(){
-    
+function getData(data){
+    var xhttp = new XMLHttpRequest();
+        
+    xhttp.onreadystatechange = function(){
+        if (xhttp.readyState === 4 && xhttp.status === 200) {
+
+           document.getElementById("data-display").innerHTML = xhttp.responseText;
+        }
+    };
+        
+    xhttp.open("POST", "selectRecords.php", true);
+        
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(data);
 }
+
 
 
