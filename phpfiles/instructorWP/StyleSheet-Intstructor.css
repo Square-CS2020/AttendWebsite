@@ -29,6 +29,9 @@
   -ms-transform: translate(-50%,-50%);
 }
 
+
+
+
 /*task button list */
 #btn-list{
   list-style-type: none;
@@ -131,13 +134,13 @@ ul#classlist li button:hover:not(.click) {
 }
 
 #data-display tr:hover {
-  background-color:rgb(58, 160, 58);
-  color:white;
   cursor: pointer;
+  background-color:rgb(58, 160, 58);
+  color:black;
 }
 
-#data-display td {
- background-color: black;
+table#data-display td {
+ background-color: rgb(44, 42, 42);
  color: white;
  text-align: center; 
 }
