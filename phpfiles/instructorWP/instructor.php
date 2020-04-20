@@ -23,7 +23,7 @@
     <ul class="navi">
         <li><a class="active" href="">Home</a></li>
         <li><a href="">Email</a></li>
-        <li><a href="">National Health Data</a></li>
+        <li><a href="course-settings.php">Course Settings</a></li>
         <li><a href="">Rescources</a></li>
         <li><a href="">About</a></li>
     </ul> 

@@ -100,8 +100,7 @@
 
 
         function coursesInstructorTeaches(){
-            //populates dropdown
-
+            
             global $conn, $stmt;
             
             $number = $_SESSION['ins_id'];

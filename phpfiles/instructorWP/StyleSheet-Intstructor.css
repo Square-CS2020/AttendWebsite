@@ -167,8 +167,13 @@ table#data-display td {
     text-decoration: none;
   }
   
-  .navi li a:hover {
-    background-color: #111111;
+  .active{
+    background-color: green;
+    color:black;
+  }
+
+  .navi li a:hover:not(.active) {
+    background-color: green;
   }
 
 
@@ -194,5 +199,6 @@ table#data-display td {
     overflow: auto;
     /*display: block;*/
 }
+
 
 

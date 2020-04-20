@@ -89,5 +89,46 @@ function getData(data){
     xhttp.send(data);
 }
 
+function updateTardyTime(functionCall){
+    //document.getElementById("data-display").style.display = "block";
+    
+    var courseID = document.getElementById("cid").value;
+    var section =  document.getElementById("cid").innerHTML;
+
+    var data = "";
+
+    if(functionCall == 0){
+        var time = document.getElementById("time").value;
+        //alert(time);
+        data = "courseID=" + courseID + "&section=" + section + "&newtime=" + time +  "&chosefunction=yes"+ 
+        "&functionType=time";
+    }
+
+    
+    else{
+        var session = document.getElementById("new-session").value;
+        data = "courseID=" + courseID + "&section=" + section + "&new-session=" + session + 
+        "&chosefunction=yes"+ "&functionType=session";
+    }
+    updateData(data);
+
+}// end of function
+
+function updateData(data){
+    var xhttp = new XMLHttpRequest();
+        
+    xhttp.onreadystatechange = function(){
+        if (xhttp.readyState === 4 && xhttp.status === 200) {
+
+           document.getElementById("out").innerHTML = xhttp.responseText;
+        }
+    };
+        
+    xhttp.open("POST", "updateDatabase.php", true);
+        
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(data);
+}
+
 
 
