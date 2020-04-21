@@ -81,7 +81,7 @@
         }
 
         else{
-            echo "elements are empty";
+            //echo "elements are empty";
             return;
         }
         
@@ -132,7 +132,7 @@
 
                 $startWithAddedMinutes = str_replace(':', '',$beforeTardy);
 
-                if($stdTime > $startWithAddedMinutes){
+                if($stdTime >= $startWithAddedMinutes){
                     echo " you are tardy";
                     /**this is where the student's atten status will change to tardy 
                      * write code:
