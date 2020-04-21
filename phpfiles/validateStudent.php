@@ -6,14 +6,14 @@
 
     if(isset($_POST['StnNum'])){ // checks if input is null
         $number = '870'. $_POST['StnNum'];
-        
+
         if(!preg_match("/870[0-9]{6}$/", $number)){ //checks if number matches this regex
             $error['number'] = "You have entered an invalid input";
-              
+
         }
 
         else{ // connects to the server and checks if ID is in the server
-            
+
             $host = "localhost";
             $dbUsername = "root";
             $dbPassword = "";
@@ -26,15 +26,15 @@
 
             else{
                 $select = "SELECT Std_ID FROM student WHERE Std_ID = ?";
-       
+
                 $stmt = $conn -> prepare($select);
                 $stmt -> bind_param("s", $number);
                 $stmt -> execute();
                 $result = $stmt->get_result(); // get the mysqli result
-                $user = $result->fetch_assoc(); // fetch data 
-                
+                $user = $result->fetch_assoc(); // fetch data
+
                 if(empty($user)){
-                    $error['empty'] = "Could not find student record associated with this 870 number. 
+                    $error['empty'] = "Could not find student record associated with this 870 number.
                     Try again.";
                 }
 
@@ -53,10 +53,9 @@
                 header('Location: studentWP/studentWP.php');
             }
 
-            
+
         }// end of else
-        
+
     }// end of POST check
 
-?> 
-
+?>
