@@ -12,3 +12,7 @@ body {
     
     display: block;
 }
+
+p {
+  text-align: center;
+}
