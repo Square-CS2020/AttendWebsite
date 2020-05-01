@@ -24,9 +24,8 @@
             $sql = "CREATE DATABASE attenrecords";
             mysqli_query($conn, $sql);
 
-            /*Stuff I added  to try and fill the "attenrecords" database using
-              the data from "insertData.sql".
-            */
+            //Fills the "attenrecords" database using the data from "insertData.sql".
+
             $connection = mysqli_connect('localhost', 'root', '','attenrecords');
             $filename = 'C:\xampp\htdocs\AttendWebsite\Database\record.sql';
             $handle = fopen($filename,"r+");
@@ -45,10 +44,8 @@
             }
             fclose($handle);
 
-            /*********************End of stuff I added.************************/
+
 /*Line 61 ("bind_param" line) gives an error that I could not fix, so I commented out this section.
-
-
 
             if(mysqli_connect_error()){ //checks if connection to server failed
                 die('Connect Error('.mysqli_connect_errno().')'. mysqli_connect_errno());
