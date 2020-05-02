@@ -128,7 +128,7 @@
                 $startWithAddedMinutes = str_replace(':', '',$beforeTardy);
 
                 if($stdTime >= $startWithAddedMinutes){
-                    echo " you are tardy";
+                    echo " you are tardy for ".getCourseName($conn, $row['Class_ID']);
                     $attenStatus = "tardy";
                     /**this is where the student's atten status will change to tardy 
                      * write code:
@@ -139,7 +139,7 @@
                 }
 
                 else {
-                    echo " you are present";
+                    echo " you are present for ".getCourseName($conn, $row['Class_ID']);
                     $attenStatus = "present";
                     /**this is where the student's atten status will change to present 
                      * write code:
@@ -176,7 +176,23 @@
         else {
             echo "\nError inserting record: " . $conn->error;
         }
-    }
+    }// end of function
+
+
+    function getCourseName($conn, $courseId){
+        $select = "SELECT course.Dept, course.Cource_Number
+                   FROM course 
+                   WHERE course.Class_ID= ?";
+
+        $stmt = $conn -> prepare($select);
+        echo $conn->error;
+        $stmt -> bind_param("s", $courseId);
+        $stmt -> execute();
+        $result = $stmt->get_result(); 
+        $row = $result->fetch_assoc();
+        return $row['Dept']. " ". $row['Cource_Number'];
+    }//end of function
+
 
     function setConnection(){
         global $conn;
