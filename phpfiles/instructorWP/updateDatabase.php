@@ -5,7 +5,6 @@
         setConnection();
         
         if(isset($_POST['chosefunction'])){
-            //echo "hello";
             choseFunction();
         }
         
@@ -43,6 +42,9 @@
 
                     case "session":  createNewSession();
                                      break;
+
+                    case "updateSession": validateClassSession();
+                                     break;
                     
                     default: echo "no function avaliable";
                 }
@@ -58,7 +60,7 @@
         
 
         function updateTardyTime(){
-            global $conn, $stmt;
+            global $conn;
 
             $courseNum = $_POST['courseID'];
             $section = $_POST['section'];
@@ -68,13 +70,7 @@
                 $update = "UPDATE course_section
                            SET Time_Before_Tardy = '$newTime'
                            WHERE Class_ID = '$courseNum'  AND Section = '$section'";
-               
-
-                /*$stmt = $conn -> prepare($update);
-                $stmt -> bind_param("sss", $newTime,$courseNum, $section);
-                $stmt -> execute();
-                $result = $stmt->get_result();*/
-
+            
                 if ($conn->query($update) == TRUE) {
                     echo " Record updated successfully ";
                 } else {
@@ -110,4 +106,80 @@
             else{echo "session is empty";}
 
         }
+
+        function notValidStudentAttendenceUpdate($courseNum, $section, $sessionDate, $conn ){
+            /* updates atten of a student for a specific class
+            UPDATE attendence AS a
+            SET a.Atten_status = 'N/A'
+            WHERE a.Class_ID = '11111' and a.Section = 'A' and a.Std_ID = 870444666
+            and a.Log_date = '2020-01-13'; */
+
+            $update = " UPDATE attendence AS a
+                        SET a.Atten_status = 'N/A'
+                        WHERE a.Class_ID=" .$courseNum. "and a.Section=".$section. 
+                        "and a.Log_date=".$sessionDate;
+
+            if ($conn->query($update) === TRUE) {
+                        echo "Student Update successfully";
+            } 
+
+            else {
+               echo "Error updating student's records: " . $conn->error;
+            }
+            endConnection();
+            
+        }//end of function
+
+        function validateClassSession(){
+            /* updates valid field in database
+             UPDATE class_session AS cs
+             SET cs.Valid = 'n'
+             WHERE cs.Class_ID = '11111' and cs.Section = 'A' and cs.Ses_date = '2020-01-13'; */
+            global $conn;
+            $courseNum = $_POST['courseID'];
+            $section = $_POST['section'];
+            $sessionDate = $_POST['ses_date'];
+            $valid = $_POST['valid'];
+           
+
+            if( isset($courseNum) && isset($section) && isset($sessionDate) && isset($valid) ) {
+                
+                if($valid == 'N'){
+                    $update = "UPDATE class_session AS cs
+                               SET cs.Valid = n 
+                               WHERE cs.Class_ID=" .$courseNum. "and cs.Section=".$section."and 
+                                    cs.Ses_date=".$sessionDate;
+
+                    if ($conn->query($update) === TRUE) {
+                        //echo "Update successfully ";
+                        notValidStudentAttendenceUpdate($courseNum, $section, $sessionDate, $conn);
+                    } 
+
+                    else {
+                        echo "<script type='text/javascript'>alert('$$conn->error');</script>";
+                    }
+                }
+
+                else{
+                   /* $update = "UPDATE class_session AS cs
+                               SET cs.Valid = y 
+                               WHERE cs.Class_ID=" .$courseNum. "and cs.Section=".$section."and 
+                                    cs.Ses_date=".$sessionDate;
+
+                    if ($conn->query($update) === TRUE) {
+                        echo "Update successfully";
+                        //notValidStudentAttendenceUpdate($courseNum, $section, $sessionDate, $conn);
+                    } 
+
+                    else {
+                        echo "Error updating record: " . $conn->error;
+                    }*/
+
+                }
+            }//end of if
+
+            else{echo "something is empty.";}
+        }// end of function
+
+    
 ?>

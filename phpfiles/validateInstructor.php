@@ -3,12 +3,12 @@
     //include "sessionstart.php";
     session_start();
     $error = array('number' =>'', 'empty' => '');// stores any input errors
-    $number = '';
+    $studentNumber = '';
 
     if(isset($_POST['InsNum'])){ // checks if input is null
-        $number = $_POST['InsNum'];
+        $studentNumber = $_POST['InsNum'];
         
-        if(!preg_match("/\d{1}$/", $number)){ //checks if number matches this regex
+        if(!preg_match("/\d{1}$/", $studentNumber)){ //checks if number matches this regex
             $error['number'] = "You have entered an invalid input(enter a digit from[0-9]).";   
         }
 
@@ -28,7 +28,7 @@
                 $select = "SELECT Ins_ID FROM instructor WHERE Ins_ID = ?";
        
                 $stmt = $conn -> prepare($select);
-                $stmt -> bind_param("s", $number);
+                $stmt -> bind_param("s", $studentNumber);
                 $stmt -> execute();
                 $result = $stmt->get_result(); // get the mysqli result
                 $user = $result->fetch_assoc(); // fetch data 

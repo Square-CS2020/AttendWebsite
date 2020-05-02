@@ -2,12 +2,12 @@
 <?php //Checks if user input is valid
     session_start();
     $error = array('number' =>'', 'empty' => '');// stores any input errors
-    $number = '';
+    $studentNumber = '';
 
     if(isset($_POST['StnNum'])){ // checks if input is null
-        $number = '870'. $_POST['StnNum'];
+        $studentNumber = '870'. $_POST['StnNum'];
         
-        if(!preg_match("/870[0-9]{6}$/", $number)){ //checks if number matches this regex
+        if(!preg_match("/870[0-9]{6}$/", $studentNumber)){ //checks if number matches this regex
             $error['number'] = "You have entered an invalid input";
               
         }
@@ -28,7 +28,7 @@
                 $select = "SELECT Std_ID FROM student WHERE Std_ID = ?";
        
                 $stmt = $conn -> prepare($select);
-                $stmt -> bind_param("s", $number);
+                $stmt -> bind_param("s", $studentNumber);
                 $stmt -> execute();
                 $result = $stmt->get_result(); // get the mysqli result
                 $user = $result->fetch_assoc(); // fetch data 

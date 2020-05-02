@@ -39,7 +39,7 @@
             if(isset($_POST['functionType'])){
 
                 switch($_POST['functionType']){
-                    case "rollcall": populateTableRollCall();
+                    case "rollcall": classRollCall();
                                      break;
 
                     case "session":  listClassSessions();
@@ -59,7 +59,7 @@
         }// end of function
         
     
-        function populateTableRollCall(){
+        function classRollCall(){
                 
             global $conn, $stmt;
 
@@ -103,9 +103,9 @@
             
             global $conn, $stmt;
             
-            $number = $_SESSION['ins_id'];
+            $studentNumber = $_SESSION['ins_id'];
 
-            if(isset($number)){
+            if(isset($studentNumber)){
                 
                 $select = "SELECT c.Class_ID, CONCAT(c.Dept, ' ', c.Cource_Number, ' ', cs.Section) AS Course
                             FROM course AS c 
@@ -113,7 +113,7 @@
                             AND cs.Ins_ID = ?";
 
                 $stmt = $conn -> prepare($select);
-                $stmt -> bind_param("s", $number);
+                $stmt -> bind_param("s", $studentNumber);
                 $stmt -> execute();
                 $result = $stmt->get_result(); // get the mysqli result
 
@@ -168,18 +168,19 @@
                     echo "<tr> <td>" . $row['Session_Date'] . "</td>" .
                             "<td>" . $row['Start_time'] . "</td>" .
                             "<td>" . $row['End_time'] . "</td>";
-                            
+                    
+                    $dropdown =  "<select onchange= 'updateStudentAndSessionRecord(this.selectedIndex, 
+                                                    this.options)'>";
+                    
                     if($row['Valid_Session'] == 'y'){
-                        $dropdown = "<select> 
-                                        <option value=". $row['Valid_Session']. "> Y </option>".
-                                        "<option value= n> N </option>
+                        $dropdown .= "<option value=". $row['Session_Date'] . ">Y</option>
+                                     <option value=". $row['Session_Date'] . ">N</option>
                                     </select>";
                     }
 
                     else{
-                        $dropdown = "<select> 
-                                            <option value=". $row['Valid_Session']. "> N </option>
-                                            <option value= y> Y </option>
+                        $dropdown .= "<option value=". $row['Session_Date']. ">N</option>
+                                     <option value=". $row['Session_Date']. ">Y</option>
                                     </select>";
                     }
                     echo "<td>" . $dropdown . "</td> </tr>";
@@ -187,9 +188,6 @@
                 }// end of loop
                 endConnection();
                
-                //echo " <select id="course-selection" onchange="makeBtnVisible()">
-                //<option value='" .$row['Class_ID']. "'>" . $row['Course'] . "</option>";
-
             }// end of if
 
             else{
@@ -198,11 +196,7 @@
 
         }// end of function
 
-        /* SELECT CONCAT(s.Fname," ", s.Lname) as Student, a.Log_time, a.Log_date, a.Atten_status 
-            FROM attendence as a 
-            inner join student as s on a.Std_ID = s.Std_ID 
-            and a.Class_ID = '22222' and a.Section = 'A'; */
-
+        
         function listAttendence(){
             global $conn, $stmt;
 
@@ -212,7 +206,7 @@
             if( isset($courseNum) && isset($section) ){
 
                 $select = "SELECT CONCAT(s.Fname,' ', s.Lname) as Student, 
-                a.Log_time, a.Log_date, a.Atten_status 
+                a.Log_time, a.Log_date, a.Atten_status, a.Std_ID
                 FROM attendence as a 
                 INNER JOIN student as s on a.Std_ID = s.Std_ID 
                 and a.Class_ID = ? and a.Section = ?";
@@ -230,31 +224,39 @@
 
                 while($row = $result->fetch_assoc()){
 
-                    echo "<tr>  <td>" . $row['Student'] . "</td>" .
+                    echo "<tr>  <td>"  . $row['Student'] . "</td>" .
                                 "<td>" . $row['Log_time'] . "</td>" .
                                 "<td>" . $row['Log_date'] . "</td>";
                             
-
+                    //optgroup
                     if($row['Atten_status'] == 'tardy'){
                         $dropdown = "<select> 
-                                        <option value=". $row['Atten_status']. "> Tardy </option>".
-                                        "<option value= present> Present </option>
+                                        <option value=". $row['Atten_status']. "> 
+                                        <p style='background-color: yellow';>Tardy</p>  
+                                        </option>
+
+                                        <option value= present> Present </option>
                                          <option value= absent> Absent </option>
                                     </select>";
                     }
 
                     else if($row['Atten_status'] == 'absent'){
                         $dropdown = "<select> 
-                                        <option value=". $row['Atten_status']. "> Absent </option>".
-                                        "<option value= tardy> Tardy </option>
+                                        <option value=". $row['Atten_status']. "> 
+                                        <img src='button-red.png' alt='Absent' height='10' width='10'> 
+                                        </option>
+
+                                        <option value= tardy> Tardy </option>
                                          <option value= present> Present </option>
                                     </select>";
                     }
 
                     else{
                         $dropdown = "<select> 
-                                        <option value=". $row['Atten_status']. "> Present </option>".
-                                        "<option value= absent> Absent </option>
+                                        <option style='background-color: green';  
+                                        value=". $row['Atten_status']. "> Present </option>
+
+                                        <option value= absent> Absent </option>
                                          <option value= tardy> Tardy </option>
                                     </select>";
                     }

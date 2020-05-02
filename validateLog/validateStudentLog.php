@@ -6,7 +6,7 @@
 
     $conn = "";
     $stmt = "";
-    $number = "";
+    $studentNumber = "";
     
     $currentDate = ""; 
     $DOW = "";
@@ -17,16 +17,15 @@
     //setDate();
     session_start();
     validateStudent();
-    checkLogInTime();
 
     function validateStudent(){
-        global $conn, $stmt, $error, $number;
+        global $conn, $stmt, $error, $studentNumber;
         setConnection();
         
         if(isset($_POST['StnNum'])){ // checks if input is null
-            $number = '870'. $_POST['StnNum'];
+            $studentNumber = '870'. $_POST['StnNum'];
             
-            if(!preg_match("/870[0-9]{6}$/", $number)){ //checks if number matches this regex
+            if(!preg_match("/870[0-9]{6}$/", $studentNumber)){ //checks if number matches this regex
                 $error['number'] = "You have entered an invalid input";
                 
             }
@@ -36,7 +35,7 @@
                 $select = "SELECT Std_ID FROM student WHERE Std_ID = ?";
         
                 $stmt = $conn -> prepare($select);
-                $stmt -> bind_param("s", $number);
+                $stmt -> bind_param("s", $studentNumber);
                 $stmt -> execute();
                 $result = $stmt->get_result(); // get the mysqli result
                 $user = $result->fetch_assoc(); // fetch data 
@@ -55,12 +54,8 @@
 
                 }
 
-                else{// if no errors then redirect to page index
-                    //header('Location: studentWP/studentWP.php');
-                    
-                    //echo $currentDate. " ". $currentDay. " ". $currentTime;
-                    //checkLogInTime();
-                    endConnection();
+                else{// if no errors then call function                   
+                    checkLogInTime();
                 }
             }// end of else
             
@@ -68,7 +63,8 @@
     }// end of function
 
     function checkLogInTime(){
-        global $currentDate, $DOW,$currentTime, $number, $stmt, $conn;
+        global $currentDate, $DOW,$currentTime, $studentNumber, $stmt, $conn;
+        $attenStatus = "";
         //echo $currentDate. " ". $currentDay. " ". $currentTime;
        $DOW = "Mon";
         $currentDate = "2020-01-13";
@@ -91,9 +87,9 @@
             case "Wed": $DOW = '%W%'; break;
             case "Thur": $DOW = '%R%'; break;
             case "Fri": $DOW = '%F%'; break;
-            default: echo "No classes are schedule for ".$DOW; return;
+            default: endConnection(); echo "No classes are schedule for ".$DOW; return;
         }
-        setConnection();
+        
 
         $select = "SELECT cs.Class_ID, cs.Section, css.Start_time, css.End_time, cs.Time_Before_Tardy
                    FROM course_section AS cs 
@@ -106,7 +102,7 @@
        
         $stmt = $conn -> prepare($select);
         echo $conn->error;
-        $stmt -> bind_param("sss", $currentDate,$DOW,$number);
+        $stmt -> bind_param("sss", $currentDate,$DOW,$studentNumber);
         $stmt -> execute();
         $result = $stmt->get_result(); 
 
@@ -128,22 +124,29 @@
                 $beforeTardy = date("H:i:s",strtotime('+1 minutes +'. $addedMinutes.'minutes',
                                     strtotime($row['Start_time'])));
 
-                echo $beforeTardy." ,".$row['Time_Before_Tardy']." ,".$row['Start_time'];
 
                 $startWithAddedMinutes = str_replace(':', '',$beforeTardy);
 
                 if($stdTime >= $startWithAddedMinutes){
                     echo " you are tardy";
+                    $attenStatus = "tardy";
                     /**this is where the student's atten status will change to tardy 
                      * write code:
                     */
+
+                    updateStudentAttendence($conn, $row['Class_ID'], $row['Section'], $studentNumber,
+                    $currentTime, $currentDate, $attenStatus);
                 }
 
                 else {
                     echo " you are present";
+                    $attenStatus = "present";
                     /**this is where the student's atten status will change to present 
                      * write code:
                     */
+
+                    updateStudentAttendence($conn, $row['Class_ID'], $row['Section'], $studentNumber,
+                    $currentTime, $currentDate, $attenStatus);
                 }
                 /**make absent a deafult atten status??? */
                 endConnection();
@@ -157,6 +160,23 @@
         echo "No class is currently in session";
         endConnection();
     }// end of function
+
+    function updateStudentAttendence($conn, $courseId, $section, $StdId, $currentTime, 
+                                     $currentDate, $attenStatus){
+
+        $update = "UPDATE attendence AS a
+                   SET a.Atten_status= '$attenStatus' , a.Log_Time= '$currentTime'
+                   WHERE a.Class_ID= '$courseId' AND a.Section= '$section' 
+                   AND a.Std_ID= '$StdId'
+                   AND a.Log_date= '$currentDate'";
+
+        if ($conn->query($update) === TRUE) {
+            echo "\nRegistration successfully";
+        } 
+        else {
+            echo "\nError inserting record: " . $conn->error;
+        }
+    }
 
     function setConnection(){
         global $conn;
@@ -179,12 +199,9 @@
     }// end of function
 
     function setDate(){
-        global $currentDate, $DOW,$currentTime;
-
-        date_default_timezone_set("America/New_York");
+        global $currentDate, $DOW;
         $currentDate =  date("Y-m-d");
         $DOW =  date("D");
-        $currentTime =  date("H:i:s");
     }
 
 

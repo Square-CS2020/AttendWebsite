@@ -20,39 +20,27 @@ function on() {
   }
 
 
+function updateStudentAndSessionRecord(seletedindex, optionsArray){
+    document.getElementById("data-display").style.display = "block";
+    var courseID = document.getElementById("cid").value;
+    var section =  document.getElementById("cid").innerHTML;
+    var sesDate = optionsArray[seletedindex].value;
+    var valid = optionsArray[seletedindex].innerHTML;
+    //alert(sesDate + " " + valid);
+
+    var data = "courseID=" + courseID + "&section=" + section + "&ses_date="+  sesDate + 
+    "&valid=" + valid + "&chosefunction=yes"+ "&functionType=updateSession";
+    
+    updateData(data);
+}
+
+
 function courseRollCallClassSession(functionCall){
     document.getElementById("data-display").style.display = "block";
     //var courseList = document.getElementById("classlist");
     var courseID = document.getElementById("cid").value;
     var section =  document.getElementById("cid").innerHTML;
-    
-   /* courseID = courseList.options[i].value;
-                section = courseList.options[i].text;
-                section = section.charAt(section.length-1);
-                
-    for(var i = 0; i < courseList.length; i++){
-
-        if(courseList.options[i].selected){
-
-            if(courseList.options[i].value == "None"){
-                document.getElementById("out").innerHTML = "";
-                return;
-            }
-            
-            else{
-                courseID = courseList.options[i].value;
-                section = courseList.options[i].text;
-                section = section.charAt(section.length-1);
-                break;
-            } 
-        }//end of if
-
-        else{
-            continue;
-        }
-     
-    }// end of for loop */
-    
+        
     var data = "";
     if(functionCall == 0){
         data = "courseID=" + courseID + "&section=" + section +  "&chosefunction=yes"+ 
@@ -121,11 +109,11 @@ function updateData(data){
         if (xhttp.readyState === 4 && xhttp.status === 200) {
 
            document.getElementById("out").innerHTML = xhttp.responseText;
+           alert("update complete");
         }
     };
         
     xhttp.open("POST", "updateDatabase.php", true);
-        
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(data);
 }
