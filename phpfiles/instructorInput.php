@@ -16,7 +16,7 @@
 
         <div class="contents" >
 
-            <p style="display:inline">Enter your ID number: </p>
+            <p style="display:inline; color:white;">Enter your ID number: </p>
             <input type="text" name = "InsNum" required>
             <input type="submit" value="submit"> 
             <br/>
