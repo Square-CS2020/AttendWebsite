@@ -17,16 +17,16 @@
             $host = "localhost";
             $dbUsername = "root";
             $dbPassword = "";
-            #$dbName = "attenrecords";
-            $conn = new mysqli($host, $dbUsername, $dbPassword/*, $dbName*/);
+            $dbName = "attenrecords";
             //$conn = new mysqli($host, $dbUsername, $dbPassword/*, $dbName*/);
+            $conn = new mysqli($host, $dbUsername, $dbPassword, $dbName);
 
-
+            /*
             $sql = "CREATE DATABASE attenrecords";
             mysqli_query($conn, $sql);
 
             //Fills the "attenrecords" database using the data from "insertData.sql".
-
+            
             $connection = mysqli_connect('localhost', 'root', '','attenrecords');
             $filename = 'C:\xampp\htdocs\AttendWebsite\Database\record.sql';
             $handle = fopen($filename,"r+");
@@ -43,10 +43,10 @@
             foreach($sql as $query){
               $result = mysqli_query($connection,$query);
             }
-            fclose($handle);
+            fclose($handle);*/
 
 
-/*Line 61 ("bind_param" line) gives an error that I could not fix, so I commented out this section.
+//Line 61 ("bind_param" line) gives an error that I could not fix, so I commented out this section.
 
             if(mysqli_connect_error()){ //checks if connection to server failed
                 die('Connect Error('.mysqli_connect_errno().')'. mysqli_connect_errno());
@@ -79,9 +79,9 @@
 
             else{// if no errors then redirect to page index
                 header('Location: studentWP/studentWP.php');
-            }*/
+            }
 
-        header('Location: studentWP/studentWP.php');
+       // header('Location: studentWP/studentWP.php');
 
         }// end of else
 

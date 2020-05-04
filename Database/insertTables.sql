@@ -33,6 +33,7 @@ create table Course_Section(
 	Class_ID char(5) NOT NULL,
     Section char(1) NOT NULL,
     DOW    char(8) NOT NULL,
+    Time_Before_Tardy time NOT NULL,
     Ins_ID char(1) NOT NULL,
     primary key(Class_ID, Section),
     foreign key(Class_ID) REFERENCES Course(Class_ID),
