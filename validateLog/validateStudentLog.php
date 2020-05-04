@@ -133,7 +133,7 @@
                      * write code:
                     */
 
-                    updateStudentAttendence($conn, $row['Class_ID'], $row['Section'], $studentNumber,
+                    checkAttendTable($conn, $row['Class_ID'], $row['Section'], $studentNumber,
                     $currentTime, $currentDate, $attenStatus);
                 }
 
@@ -144,7 +144,7 @@
                      * write code:
                     */
 
-                    updateStudentAttendence($conn, $row['Class_ID'], $row['Section'], $studentNumber,
+                    checkAttendTable($conn, $row['Class_ID'], $row['Section'], $studentNumber,
                     $currentTime, $currentDate, $attenStatus);
                 }
                 /**make absent a deafult atten status??? */
@@ -159,6 +159,39 @@
         echo "No class is currently in session for " .$currentDate. ",  ". $day. ",  ". $currentTime;
         endConnection();
     }// end of function
+
+    function checkAttendTable($conn, $courseId, $section, $StdId, $currentTime, 
+                              $currentDate, $attenStatus){
+        $select ="SELECT *
+                  FROM attendence AS a
+                  WHERE  a.Class_ID= '$courseId' AND a.Section= '$section' 
+                  AND a.Std_ID= '$StdId'
+                  AND a.Log_date= '$currentDate'";
+
+        $stmt = $conn -> prepare($select);
+        $stmt -> execute();
+        $result = $stmt->get_result(); 
+        $row = $result->fetch_assoc();
+
+        if(!isset($row)){
+            $insert = "INSERT INTO attendence(Class_ID,Section,Std_ID, Log_time,Log_date,Atten_status)
+                       VALUES('$courseId','$section','$StdId','$currentTime','$currentDate','$attenStatus')";
+
+            if ($conn->query($insert) === TRUE) {
+                echo "\nInsert successfully";
+            } 
+            else {
+                echo "\nError inserting record: " . $conn->error;
+            }
+            
+        }//end of if
+
+        else{
+            updateStudentAttendence($conn, $courseId, $section, $StdId, $currentTime, 
+                                     $currentDate, $attenStatus);
+        }
+
+    }//end of function
 
     function updateStudentAttendence($conn, $courseId, $section, $StdId, $currentTime, 
                                      $currentDate, $attenStatus){
@@ -176,6 +209,8 @@
             echo "\nError inserting record: " . $conn->error;
         }
     }// end of function
+
+
 
 
     function getCourseName($conn, $courseId){
