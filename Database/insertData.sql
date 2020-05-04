@@ -24,10 +24,10 @@ value('870333555',"K-Map", "T", 'O', "Senior");
 
 /*Instructors*/
 insert into instructor(Ins_ID, Fname, Lname)
-value('8',"JarJar", "Barkley");
+value('8',"JarJar", "Purks");
 
 insert into instructor(Ins_ID, Fname, Lname)
-value('2',"David", "Barkley");
+value('2',"David", "Chump");
 
 insert into instructor(Ins_ID, Fname, Lname)
 value('1',"Charles", "Barkley");
@@ -208,6 +208,7 @@ value('870111222', '8');
 
 insert into Teach(Std_ID, Ins_ID)
 value('870888999', '8');
+
 
 /*Attendence*/
 insert into Attendence(Class_ID, Section, Std_ID, Log_time, Log_date, Atten_status)

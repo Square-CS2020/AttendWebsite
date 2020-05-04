@@ -23,16 +23,16 @@
             <input type="submit" value="submit"> 
             <br/>
 
-           <!-- <p style="display:inline">Enter Date(y:m:d): </p>
-            <input type="text" name = "StnDate" required> 
+           <p style="display:inline">Enter Date(y:m:d): </p>
+            <input type="text" name = "StnDate"> 
             <br/>
 
             <p style="display:inline">Enter Day(Mon,Tues, Wed,..): </p>
-            <input type="text" name = "StnDay" required>
-            <br/> -->
+            <input type="text" name = "StnDay">
+            <br/>
 
             <p style="display:inline">Enter Time(h:m:s,00:00:00): </p>
-            <input type="text" name = "StnTime" required>
+            <input type="text" name = "StnTime">
             <br/>
 
             <div style="color:red"> <?php include 'validateLog/validateStudentLog.php'; 

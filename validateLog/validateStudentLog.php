@@ -14,7 +14,6 @@
 
     $error = array('number' =>'', 'empty' => '');// stores any input errors
 
-    //setDate();
     session_start();
     validateStudent();
 
@@ -65,21 +64,21 @@
     function checkLogInTime(){
         global $currentDate, $DOW,$currentTime, $studentNumber, $stmt, $conn;
         $attenStatus = "";
-        //echo $currentDate. " ". $currentDay. " ". $currentTime;
-       $DOW = "Mon";
-        $currentDate = "2020-01-13";
-        //$currentTime = "10:50:00";*/
-        //isset($_POST['StnDate']) && isset($_POST['StnDay']) && 
-        if(isset($_POST['StnTime'])){
-            //$DOW = $_POST['StnDay'];
-            //$currentDate = $_POST['StnDate'];
+        
+        if(isset($_POST['StnDate']) && isset($_POST['StnDay']) && isset($_POST['StnTime'])){
+            $DOW = $_POST['StnDay'];
+            $currentDate = $_POST['StnDate'];
             $currentTime = $_POST['StnTime'];
+
+            if(strlen($DOW) == 0 || strlen($currentDate) == 0 || strlen($currentTime) == 0){
+                setDate();
+            }
         }
 
         else{
-            //echo "elements are empty";
-            return;
+            setDate();
         }
+        $day = $DOW;
         
         Switch($DOW){
             case "Mon": $DOW = '%M%'; break;
@@ -157,7 +156,7 @@
             else{continue;}
 
         } // end of loop
-        echo "No class is currently in session";
+        echo "No class is currently in session for " .$currentDate. ",  ". $day. ",  ". $currentTime;
         endConnection();
     }// end of function
 
@@ -215,9 +214,10 @@
     }// end of function
 
     function setDate(){
-        global $currentDate, $DOW;
+        global $currentDate, $DOW, $currentTime;
         $currentDate =  date("Y-m-d");
-        $DOW =  date("D");
+        $DOW = date("D");
+        $currentTime = date("H:i:s");
     }
 
 

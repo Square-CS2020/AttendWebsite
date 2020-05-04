@@ -169,8 +169,7 @@
                             "<td>" . $row['Start_time'] . "</td>" .
                             "<td>" . $row['End_time'] . "</td>";
                     
-                    $dropdown =  "<select onchange= 'updateStudentAndSessionRecord(this.selectedIndex, 
-                                                    this.options)'>";
+                    $dropdown =  "<select>";
                     
                     if($row['Valid_Session'] == 'y'){
                         $dropdown .= "<option value=". $row['Session_Date'] . ">Y</option>
@@ -231,10 +230,7 @@
                     //optgroup
                     if($row['Atten_status'] == 'tardy'){
                         $dropdown = "<select> 
-                                        <option value=". $row['Atten_status']. "> 
-                                        <p style='background-color: yellow';>Tardy</p>  
-                                        </option>
-
+                                        <option value= tardy> Tardy </option>
                                         <option value= present> Present </option>
                                          <option value= absent> Absent </option>
                                     </select>";
@@ -242,10 +238,7 @@
 
                     else if($row['Atten_status'] == 'absent'){
                         $dropdown = "<select> 
-                                        <option value=". $row['Atten_status']. "> 
-                                        <img src='button-red.png' alt='Absent' height='10' width='10'> 
-                                        </option>
-
+                                        <option value= absent> Absent </option>
                                         <option value= tardy> Tardy </option>
                                          <option value= present> Present </option>
                                     </select>";
@@ -253,9 +246,7 @@
 
                     else{
                         $dropdown = "<select> 
-                                        <option style='background-color: green';  
-                                        value=". $row['Atten_status']. "> Present </option>
-
+                                        <option value= Present > Present </option>
                                         <option value= absent> Absent </option>
                                          <option value= tardy> Tardy </option>
                                     </select>";

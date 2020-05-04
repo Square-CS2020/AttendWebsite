@@ -11,13 +11,14 @@ function makeBtnGroupVisible(cid, section){
     
 }
 
+/*
 function on() {
     document.getElementById("overlay").style.display = "block";
   }
   
   function off() {
     document.getElementById("overlay").style.display = "none";
-  }
+  }*/
 
 
 function updateStudentAndSessionRecord(seletedindex, optionsArray){
@@ -109,7 +110,6 @@ function updateData(data){
         if (xhttp.readyState === 4 && xhttp.status === 200) {
 
            document.getElementById("out").innerHTML = xhttp.responseText;
-           alert("update complete");
         }
     };
         

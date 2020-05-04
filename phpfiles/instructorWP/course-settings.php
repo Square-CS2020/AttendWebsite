@@ -49,11 +49,6 @@
 
                  <li style="color:white"> Enter a new time for the tardy field(h:m:s) 
                      <input id="time" type="text" ></li> 
-
-                 <li style="color:white"> Create a new session(seperate values using commas) 
-                     <input id="new-session" type="text" >  </li>    
-                     
-                <li> </li>
                </ul>
                <button type = "button" onclick="updateTardyTime(0)"> save changes</button>
 

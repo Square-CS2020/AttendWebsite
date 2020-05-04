@@ -84,35 +84,17 @@
 
         }//end of function
 
-        function createNewSession(){
-            global $conn;
-            $courseNum = $_POST['courseID'];
-            $section = $_POST['section'];
-            $session = explode(",", $_POST["new-session"]);
+      
 
-            if( isset($session) ){
-                $insert = "INSERT INTO class_session(Class_ID,Section,Ses_date,Start_time,End_time,Valid)
-                           VALUES(".$courseNum. "," .$section . "," .date(Y-m-d). "," .$session[0].
-                           ",". $session[1]. ",". $session[2].")";
-
-                if ($conn->query($insert) === TRUE) {
-                    echo "Record insertion successfully";
-                } else {
-                    echo "Error inserting record: " . $conn->error;
-                }
-                endConnection();
-            }
-
-            else{echo "session is empty";}
-
-        }
-
+        /* Function does not work properly
+            Function: Updates students attendence status to N/A for class-sessions that aren't valid.
+             
         function notValidStudentAttendenceUpdate($courseNum, $section, $sessionDate, $conn ){
             /* updates atten of a student for a specific class
             UPDATE attendence AS a
             SET a.Atten_status = 'N/A'
             WHERE a.Class_ID = '11111' and a.Section = 'A' and a.Std_ID = 870444666
-            and a.Log_date = '2020-01-13'; */
+            and a.Log_date = '2020-01-13'; 
 
             $update = " UPDATE attendence AS a
                         SET a.Atten_status = 'N/A'
@@ -128,13 +110,16 @@
             }
             endConnection();
             
-        }//end of function
+        }//end of function*/
+
+        /* Function does not work properly.
+         Function: Allow professor to change validations of class-sessions
 
         function validateClassSession(){
             /* updates valid field in database
              UPDATE class_session AS cs
              SET cs.Valid = 'n'
-             WHERE cs.Class_ID = '11111' and cs.Section = 'A' and cs.Ses_date = '2020-01-13'; */
+             WHERE cs.Class_ID = '11111' and cs.Section = 'A' and cs.Ses_date = '2020-01-13'; 
             global $conn;
             $courseNum = $_POST['courseID'];
             $section = $_POST['section'];
@@ -161,7 +146,7 @@
                 }
 
                 else{
-                   /* $update = "UPDATE class_session AS cs
+                    $update = "UPDATE class_session AS cs
                                SET cs.Valid = y 
                                WHERE cs.Class_ID=" .$courseNum. "and cs.Section=".$section."and 
                                     cs.Ses_date=".$sessionDate;
@@ -173,13 +158,13 @@
 
                     else {
                         echo "Error updating record: " . $conn->error;
-                    }*/
+                    }
 
                 }
             }//end of if
 
             else{echo "something is empty.";}
-        }// end of function
+        }// end of function */
 
     
 ?>
