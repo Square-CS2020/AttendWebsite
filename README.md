@@ -4,6 +4,7 @@ This will contain all components for our Attendance Website.
 The website tracks the attendence of collage students and stores this information inside a database. Their instructor can view each students status that are currently enrolled in his/her class. Bellow is a brief tutorial on preparing the database.
 
 
+
 Abbreviated Installation Tutorial:
 
 Download and install Xampp from https://www.apachefriends.org/download.html
@@ -21,6 +22,8 @@ Start Apache and MySQL services from Xampp control panel
 Navigate to 127.0.0.1 in web browser to verify services are running
 
 Launch frontPage.html for Xampp/htdocs/AttendWebsite folder
+
+
 
 
 
