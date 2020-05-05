@@ -1,9 +1,26 @@
 # AttendWebsite
 This will contain all components for our Attendance Website.
 
-UPDATE: I added a new filed in to the course_section table:Time_Before_Tardy.
-With this the instructor can set the amount time a student has to sign in before
-they will be marked tardy.
+Abbreviated User Tutorial:
+
+Download and install Xampp from https://www.apachefriends.org/download.html
+
+Download or clone AttendWebsite from https://github.com/Square-CS2020/AttendWebsite
+
+Transfer AttendWebsite folder to Xampp/htdocs folder
+
+Launch Xampp control panel. Under MySQL click Admin button
+
+Import the three databases in the following order: createDatabase.sql, insertTables.sql, insertData.sql
+
+Start Apache and MySQL services from Xampp control panel
+
+Navigate to 127.0.0.1 in web browser to verify services are running
+
+Launch frontPage.html for Xampp/htdocs/AttendWebsite folder
+
+
+Everything bellow will explain the structure of the database.
 
 Database Structure: 
 
@@ -124,24 +141,3 @@ Teach Table:  Tracks which students are taught by a specific instructor
     Std_ID: ID of student 
 
     Ins_ID: ID of Instructor
-
-
-
-
-Abbreviated User Tutorial
-
-Download and install Xampp from https://www.apachefriends.org/download.html
-
-Download or clone AttendWebsite from https://github.com/Square-CS2020/AttendWebsite
-
-Transfer AttendWebsite folder to Xampp/htdocs folder
-
-Launch Xampp control panel. Under MySQL click Admin button
-
-Import the three databases in the following order: createDatabase.sql, insertTables.sql, insertData.sql
-
-Start Apache and MySQL services from Xampp control panel
-
-Navigate to 127.0.0.1 in web browser to verify services are running
-
-Launch frontPage.html for Xampp/htdocs/AttendWebsite folder
