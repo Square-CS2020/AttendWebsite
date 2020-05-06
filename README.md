@@ -149,7 +149,9 @@ Teach Table:  Tracks which students are taught by a specific instructor
 
     Ins_ID: ID of Instructor
     
-    Abbreviated User Tutorial
+    
+
+Abbreviated User Tutorial
 
 Download and install Xampp from https://www.apachefriends.org/download.html
 
